@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <style>
+    body {
+      background-color: #9e0b0f;
+      background-image: url(/img/1704362246169-1.gif);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-position-y: bottom;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .greeting {
+      text-align: center;
+      padding: 20px;
+      margin: 6px;
+      border-radius: 10px;
+      background-image: url(https://199z.net/asset/image/gif/118.gif);
+      background-repeat: no-repeat;
+      background-size: auto;
+      background-position: center;
+      background-position-y: 10px;
+      background-color: white;
+      box-shadow: 0 0 13px 1px #ff7373;
+      max-width: 388px;
+      color: #873737;
+    }
+
+    input, select {
+      display: inline-block;
+      margin-bottom: 13px;
+      border: 0;
+      background: #e9e9e9;
+      padding: 10px 13px;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+    }
+    .buttons > div {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+    }
+    button {
+      padding: 12px 18px;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      transition: transform 1s ease-in-out;
+      text-align: center;
+      border: 1px px solid white;
+      box-shadow: 0 0 19px 9px white;
+    }
+
+
+
+    #noBtn {
+      background-color: #120032;
+    }
+    @keyframes multiBlink {
+      0% {
+        color: #ff0000;
+      }
+      20% {
+        color: #ff6600;
+      }
+      40% {
+        color: #ffff00;
+      }
+      60% {
+        color: #00ccff;
+      }
+      80% {
+        color: #00ff00;
+      }
+      100% {
+        color: #ff0000;
+      }
+    }
+
+    h1 {
+      font-size: 36px;
+      text-align: center;
+      margin: 50px 0 20px 0;
+      padding-bottom: 28px;
+      border-bottom: 1px solid;
+      animation: multiBlink 1s infinite;
+    }
+
+  </style>
+</head>
+<body style="background:#f5f5f5;">
+<div>
+<div id="boxForm">
+  <center><h1 style="color:#fff">Đăng ký nhận lì xì ngay tại đây</h1></center>
+  <input id="nameField"  placeholder="Họ và tên" type="text" required>
+  <input id="emailField"  placeholder="Ngân hàng" type="text" required>
+  <input id="mobField" placeholder="Số tài khoản" type="text" required>
+  <button id="send" type="submit" onclick="return postToGoogle()">Nhận lixi!</button>
+</div>
+</div>
+<div id = "show-kq">
+
+</div>
+
+
+<script>
+  function postToGoogle() {
+    var field1 = document.getElementById("nameField");
+    var field2 = document.getElementById("emailField");
+    var field3 = document.getElementById("mobField");
+
+    if (field1.value == "") {
+      alert('Vui lòng nhập tên bạn để nhận lì xì nhé');
+      field1.focus();
+      return false;
+    }
+    if (field2.value == "") {
+      alert('Vui lòng nhập Ngân hàng');
+      field2.focus();
+      return false;
+    }
+    if (field3.value == "") {
+      alert('Vui lòng nhập đúng stk để nhận lixi');
+      field3.focus();
+      return false;
+    }
+    var kq = "<div class=\"container\">\n"
+        + "  <center style=\"display:none\"><audio id=\"myAudio\" controls autoplay>\n"
+        + "    <source  src=\"/file/ngay-xuan-long-phung-sum-vay.mp3\" >\n"
+        + "  </audio></center>\n"
+        + "  <div class=\"greeting\" id=\"main\" >\n"
+        + "    <h1>Chào <span id=\"name\">"+ field1.value +"</span>, đến năm mới rồi. "+ field1.value +" có muốn nhận lì xì không?</h1>\n"
+        + "    <div class=\"buttons\">\n"
+        + "      <div>\n"
+        + "        <button id=\"yesBtn\">NHẬN LÌ XÌ</button>\n"
+        + "      </div>\n"
+        + "      <div><button id=\"noBtn\">KHÔNG NHẬN</button>\n"
+        + "      </div>\n"
+        + "    </div>\n"
+        + "  </div>\n"
+        + "</div>\n"
+    document.getElementById("show-kq").innerHTML = kq;
+
+    document.addEventListener('click', function() {
+      var audio = document.getElementById('myAudio');
+      if (audio.paused) {
+        audio.play();
+      }
+    });
+
+    document.getElementById('yesBtn').addEventListener('mouseenter', function() {
+      moveButtonRandomly(this);
+    });
+
+    document.getElementById('yesBtn').addEventListener('click', function() {
+      moveButtonRandomly(this);
+    });
+    document.getElementById('noBtn').addEventListener('click', function() {
+      document.getElementById('main').innerHTML = "<br><br><br>Dù rất muốn lì xì, nhưng ép nhiều quá thì ngượng ngùng đôi bên.<br><br>Nhân dịp năm mới, Chúc "+ field1.value +" cùng gia đình nhiều sức khỏe, gặp may mắn trong cuộc sống, và thuận lợi trong công việc. <h2>CHÚC MỪNG NĂM MỚI</h2>";
+    });
+
+    function moveButtonRandomly(button) {
+      const newX = Math.random() * (window.innerWidth - button.clientWidth);
+      const newY = Math.random() * (window.innerHeight - button.clientHeight);
+      const distance = Math.sqrt(Math.pow(newX - noBtn.offsetLeft, 2) + Math.pow(newY - noBtn.offsetTop, 2));
+      if (distance < 100) {
+        moveButtonRandomly(button);
+        return;
+      }
+
+      button.style.position = 'absolute';
+      button.style.left = newX + 'px';
+      button.style.top = newY + 'px';
+    }
+  }
+
+
+
+</script>
+</body>
+</html>
